@@ -39,6 +39,7 @@ public class Boid : MonoBehaviour
 
     private void SeperationHandling(float seperation, float seperationRadius, ref List<Boid> boids)
     {
+
         foreach (Boid boid in boids)
         {
             if (Vector3.Distance(boid.transform.position, transform.position) > seperationRadius) { continue; }

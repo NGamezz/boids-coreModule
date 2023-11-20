@@ -341,12 +341,12 @@ MonoBehaviour:
   boids: []
   boidPrefab: {fileID: 5334924074047772453, guid: fe15167d0de0e9f49acaa3ccc509766f, type: 3}
   amountOfBoids: 20
-  cohesion: 5
-  seperation: 25
+  cohesion: 8
+  seperation: 15
   seperationRadius: 3
-  allignment: 8
+  allignment: 4
   boundaryRadius: 50
-  maxBoidVelocity: 6
+  maxBoidVelocity: 10
   BoidFieldOfView: 15
 --- !u!4 &1173092143
 Transform:
