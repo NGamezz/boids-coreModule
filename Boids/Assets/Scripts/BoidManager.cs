@@ -54,7 +54,7 @@ public class BoidManager : MonoBehaviour
 
         foreach (Boid boid in boids)
         {
-            boid.UpdateBoidPosition(boundaryRadius, seperation, cohesion, seperationRadius, allignment, maxBoidVelocity, transform);
+            boid.UpdateBoidPosition(ref boids, boundaryRadius, seperation, cohesion, seperationRadius, allignment, maxBoidVelocity, transform);
             boid.SetFlockCenterAndVelocity(GetAverageVector(boid, false), GetAverageVector(boid, true));
         }
     }

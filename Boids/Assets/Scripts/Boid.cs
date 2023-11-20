@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
@@ -36,30 +37,22 @@ public class Boid : MonoBehaviour
         }
     }
 
-    private void SeperationHandling(float seperation, float seperationRadius)
+    private void SeperationHandling(float seperation, float seperationRadius, ref List<Boid> boids)
     {
-        Collider[] colliders = Physics.OverlapSphere(transform.position, seperationRadius, layerMask: boidLayer);
-
-        if (colliders.Length < 1) { return; }
-
-        foreach (Collider collider in colliders)
+        foreach (Boid boid in boids)
         {
-            if (collider.TryGetComponent(out Boid boid))
-            {
-                if (boid == this) { continue; }
-                if (Vector3.Distance(transform.position, boid.transform.position) > seperationRadius) { continue; }
+            if (Vector3.Distance(boid.transform.position, transform.position) > seperationRadius) { continue; }
 
-                Vector3 directionToBoid = boid.transform.position - transform.position;
-                Rb.AddForce(10.0f * seperation * -directionToBoid.normalized, ForceMode.Force);
-            }
+            Vector3 directionToBoid = boid.transform.position - transform.position;
+            Rb.AddForce(10.0f * seperation * -directionToBoid.normalized, ForceMode.Force);
         }
     }
 
-    public void UpdateBoidPosition(float flockRadius, float seperation, float coherence, float seperationRadius = 3.0f, float allignment = 3.0f, float maxVelocity = 20.0f, Transform parent = null)
+    public void UpdateBoidPosition(ref List<Boid> boids, float flockRadius, float seperation, float coherence, float seperationRadius = 3.0f, float allignment = 3.0f, float maxVelocity = 20.0f, Transform parent = null)
     {
         if (Rb == null) { return; }
 
-        SeperationHandling(seperation, seperationRadius);
+        SeperationHandling(seperation, seperationRadius, ref boids);
 
         if (Vector3.Distance(transform.position, flockCenter) >= seperationRadius && flockCenter != null && Rb != null)
         {
